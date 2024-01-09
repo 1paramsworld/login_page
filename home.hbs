@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiple Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #imageInput {
+            margin-bottom: 20px;
+        }
+        #imagePreview {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #imagePreview img {
+            max-width: 200px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 3px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        hr {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="imageInput" accept="image/*" multiple>
+    <button onclick="uploadImages()">Upload</button>
+    <hr>
+    <div id="imagePreview"></div>
+
+    <script>
+        function uploadImages() {
+            const input = document.getElementById('imageInput');
+            const files = input.files;
+
+            const imagePreview = document.getElementById('imagePreview');
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        const image = document.createElement('img');
+                        image.src = e.target.result;
+                        imagePreview.appendChild(image);
+                    }
+
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
